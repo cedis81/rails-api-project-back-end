@@ -1,5 +1,5 @@
-class LeaguesController < ApplicationController
-  before_action :set_league, only: [:show, :update, :destroy]
+class LeaguesController < ProtectedController
+  before_action :set_league, only: %i[update destroy show]
 
   # GET /leagues
   def index
@@ -15,6 +15,7 @@ class LeaguesController < ApplicationController
 
   # POST /leagues
   def create
+    # @league = League.new(league_params)
     @league = League.new(league_params)
 
     if @league.save
@@ -41,7 +42,7 @@ class LeaguesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_league
-      @league = League.find(params[:id])
+      @league = League.all.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
