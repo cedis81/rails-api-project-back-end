@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class LeaguesController < ProtectedController
   before_action :set_league, only: %i[update destroy show]
 
@@ -16,7 +17,7 @@ class LeaguesController < ProtectedController
   # POST /leagues
   def create
     # @league = League.new(league_params)
-    @league = League.new(league_params)
+    @league = current_user.leagues.new(league_params)
 
     if @league.save
       render json: @league, status: :created, location: @league
@@ -42,7 +43,7 @@ class LeaguesController < ProtectedController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_league
-      @league = League.all.find(params[:id])
+      @league = current_user.leagues.all.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
