@@ -4,7 +4,7 @@ class LeaguesController < ProtectedController
 
   # GET /leagues
   def index
-    @leagues = League.all
+    @leagues = current_user.leagues.all
 
     render json: @leagues
   end
