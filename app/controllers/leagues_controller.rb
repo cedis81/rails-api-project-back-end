@@ -17,7 +17,7 @@ class LeaguesController < ProtectedController
   # POST /leagues
   def create
     # @league = League.new(league_params)
-    @league = current_user.leagues.new(league_params)
+    @league = current_user.leagues.build(league_params)
 
     if @league.save
       render json: @league, status: :created, location: @league
